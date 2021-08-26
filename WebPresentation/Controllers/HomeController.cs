@@ -35,9 +35,9 @@ namespace WebPresentation.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         [Authorize]
-        public IActionResult test()
+        public IActionResult testToken()
         {
-            return View();
+            return Ok("approved mina");
         }
     }
 }

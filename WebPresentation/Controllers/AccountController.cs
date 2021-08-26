@@ -89,6 +89,7 @@ namespace WebPresentation.Controllers
             new Claim( ClaimTypes.Name,user.UserName),
             new Claim( ClaimTypes.NameIdentifier,user.Id.ToString()),
             new Claim( securityStampClaimType,user.SecurityStamp.ToString()),
+            //new Claim( ClaimTypes.Role),
             };
 
             //var roles=new Role[] 

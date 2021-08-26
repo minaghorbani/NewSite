@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Domain.Identity;
+using System.Net.Http;
 
 namespace WebPresentation.Areas.Identity.Pages.Account
 {
@@ -87,6 +88,18 @@ namespace WebPresentation.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+
+                    var client = new HttpClient();
+                    var content = new FormUrlEncodedContent(new[] { 
+                    new KeyValuePair<string,string>("userName",Input.Email),
+                    new KeyValuePair<string,string>("password",Input.Password),
+                    });
+
+                    Task.Run(async()=> {
+                        var result = await client.PostAsync("https://localhost:44323/home/testToken", content);
+                        var token = await result.Content.ReadAsStringAsync();
+                    });
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

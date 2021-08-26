@@ -90,6 +90,10 @@ namespace WebPresentation
                 //    policy.Requirements.Add(new MinAgeRequirement(20))
                 //});
             });
+            services.AddMvc().AddRazorPagesOptions(option=> {
+                option.Conventions.AuthorizeAreaFolder("User", "/");
+                option.Conventions.AuthorizeAreaFolder("Admin", "/", "RequireAdminRole");
+            });
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddControllersWithViews();

@@ -25,7 +25,7 @@ namespace WebPresentation.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Infrastructure")));
 
-                services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddIdentity<ApplicationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<SiteDbContext>()
                 .AddDefaultTokenProviders()
                .AddDefaultUI();
