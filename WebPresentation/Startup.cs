@@ -1,5 +1,6 @@
 using Application.Common;
 using Domain.Identity;
+using Helpers.Email;
 using Infrastructure.Persistance;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

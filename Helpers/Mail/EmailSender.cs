@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using MimeKit;
-using MailKit.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
 
-namespace WebPresentation.Services
+namespace Helpers.Email
 {
     public class EmailSender : IEmailSender
     {
@@ -20,7 +18,7 @@ namespace WebPresentation.Services
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             string fromMail = "mina.gh.66@gmail.com";
-            string fromPassword = "rwgcxsoetgvnvxdj";
+            string fromPassword = "--";
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
