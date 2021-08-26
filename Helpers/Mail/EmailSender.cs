@@ -17,7 +17,7 @@ namespace Helpers.Email
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            string fromMail = "eeee@gmail.com";
+            string fromMail = "mina@gmail.com";
             string fromPassword = "";
 
             MailMessage message = new MailMessage();
