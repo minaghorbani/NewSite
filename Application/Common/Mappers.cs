@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Application.BlogApplication.Command.Create;
+using AutoMapper;
 using Domain.Entities;
 using Domain.ViewModels.Blog;
 using System;
@@ -15,6 +16,7 @@ namespace Application.Common
         {
             CreateMap<vmBlogInfo, Blog>();
             CreateMap<Blog, vmBlogInfo>();
+            CreateMap<BlogCreateCommand, Blog>();
             //CreateMap<Blog, vmBlogInfo>().ReverseMap();
         }
     }

@@ -12,6 +12,7 @@ namespace Infrastructure.Repositories
     {
         Task<int> Create(Blog blog);
         Task<Blog> GetById(int id);
+        Task<IList<Blog>> GetAll();
         Task<Result> Update(Blog blog);
     }
 }

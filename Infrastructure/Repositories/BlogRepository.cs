@@ -32,7 +32,10 @@ namespace Infrastructure.Repositories
         {
             return await _context.Blogs.FindAsync(id);
         }
-
+        public async Task<IList<Blog>> GetAll()
+        {
+            return await _context.Blogs.ToListAsync();
+        }
         public async Task<Result> Update(Blog blog)
         {
             _context.Entry(blog).State = EntityState.Modified;

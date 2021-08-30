@@ -1,7 +1,9 @@
+using Application.BlogApplication.Command.Create;
 using Application.Common;
 using Domain.Identity;
 using Helpers.Email;
 using Infrastructure.Persistance;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -23,7 +25,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WebPresentation.Models;
-using WebPresentation.Services;
 //using WebPresentation.Data;
 
 namespace WebPresentation
@@ -96,6 +97,7 @@ namespace WebPresentation
                 option.Conventions.AuthorizeAreaFolder("Admin", "/", "RequireAdminRole");
             });
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddMediatR(typeof(BlogCreateCommand).GetTypeInfo().Assembly); 
 
             services.AddControllersWithViews();
         }
@@ -131,6 +133,7 @@ namespace WebPresentation
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
 
