@@ -15,11 +15,13 @@ namespace Infrastructure.Repositories
     {
         private readonly SiteDbContext _context;
         private IUnitOfWork _unitOfWork;
-        public BlogRepository(SiteDbContext context)
+
+        public BlogRepository(SiteDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
-            _unitOfWork = new Infrastructure.UnitOfWork.UnitOfWork(context);
+            _unitOfWork = unitOfWork;
         }
+       
         public async Task<int> Create(Blog blog)
         {
             var result = _context.Blogs.Add(blog);

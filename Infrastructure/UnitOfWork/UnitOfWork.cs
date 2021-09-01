@@ -14,13 +14,13 @@ namespace Infrastructure.UnitOfWork
         public UnitOfWork(SiteDbContext context)
         {
             _context = context;
-            BlogRepository = new BlogRepository(context);
-            PostRepository = new PostRepository(context);
+            //BlogRepository = new BlogRepository(context);
+            //PostRepository = new PostRepository(context);
         }
 
-        public IBlogRepository BlogRepository { get; }
+        //public IBlogRepository BlogRepository { get; }
 
-        public IPostRepository PostRepository { get; }
+        //public IPostRepository PostRepository { get; }
 
         public async Task<bool> CommitAsync()
         {

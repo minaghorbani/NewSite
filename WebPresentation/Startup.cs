@@ -1,8 +1,14 @@
+using Application.BlogApplication;
 using Application.BlogApplication.Command.Create;
+//using Application.BlogApplication.Queries.FindById;
+//using Application.BlogApplication.Queries.GetAll;
 using Application.Common;
+using Autofac;
 using Domain.Identity;
 using Helpers.Email;
 using Infrastructure.Persistance;
+using Infrastructure.Repositories;
+using Infrastructure.UnitOfWork;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,6 +23,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -41,6 +48,17 @@ namespace WebPresentation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<SiteDbContext>(options =>
+                   options.UseSqlServer(
+                       Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Infrastructure")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<SiteDbContext>()
+            .AddDefaultTokenProviders()
+           .AddDefaultUI();
+
+
             //services.AddDbContext<SiteDbContext>(options =>
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Infrastructure")));
@@ -96,10 +114,32 @@ namespace WebPresentation
                 option.Conventions.AuthorizeAreaFolder("User", "/");
                 option.Conventions.AuthorizeAreaFolder("Admin", "/", "RequireAdminRole");
             });
+
+            services.AddHttpContextAccessor();
+
+            //var serviceProvider = services.BuildServiceProvider();
+            //var logger = serviceProvider.GetService<ILogger<BlogService>>();
+            //services.AddSingleton(typeof(ILogger), logger);
+
+
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddMediatR(typeof(BlogCreateCommand).GetTypeInfo().Assembly); 
+            services.AddAutoMapper(typeof(Mappers).GetTypeInfo().Assembly);
+
+
+
+            //services.AddMediatR(typeof(BlogCreateCommand).GetTypeInfo().Assembly);
+            //services.AddMediatR(typeof(FindBlogsByIdQuery).GetTypeInfo().Assembly);
+            //services.AddMediatR(typeof(GetAllBlogsQuery).GetTypeInfo().Assembly);
+            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            //services.AddTransient(typeof(IPipelineBehavior<BlogCreateCommand, int>), typeof(BlogCreateValidationBehavior<BlogCreateCommand, int>));
+            //services.AddTransient<IBlogRepository, BlogRepository>();
+
+            services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
             services.AddControllersWithViews();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -139,7 +179,6 @@ namespace WebPresentation
 
         private void ConfigureDatabaseOptions(DbContextOptionsBuilder builder)
         {
-            //builder.UseSqlServer("DefaultConnection", ConfigureSqlServerDatabaseOptions);
             builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), ConfigureSqlServerDatabaseOptions);
         }
 
@@ -147,6 +186,7 @@ namespace WebPresentation
         {
             builder.MigrationsAssembly(typeof(SiteDbContext).Namespace);
         }
+      
 
     }
 }

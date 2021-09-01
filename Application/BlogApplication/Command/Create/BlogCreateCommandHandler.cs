@@ -20,11 +20,27 @@ namespace Application.BlogApplication.Command.Create
             _blogRepository = blogRepository;
             _mapper = mapper;
         }
+        //public async Task<int> Handle(BlogCreateCommand request, CancellationToken cancellationToken)
+        //{
+        //    //var model = _mapper.Map<request vmBlogInfo, Blog>(blog);
+
+        //        var blog = new Blog()
+        //        {
+        //            Description = request.Description,
+        //            Title = request.Title,
+        //        };
+        //        var id = await _blogRepository.Create(blog);
+
+        //        return id;
+
+
+        //}
+
         public async Task<int> Handle(BlogCreateCommand request, CancellationToken cancellationToken)
         {
             //var model = _mapper.Map<request vmBlogInfo, Blog>(blog);
             var validator = new BlogCreateCommandValidator();
-            var validate= validator.Validate(request);
+            var validate = validator.Validate(request);
             if (validate.IsValid)
             {
                 var blog = new Blog()
@@ -40,7 +56,8 @@ namespace Application.BlogApplication.Command.Create
             {
                 throw new Exception("Food is not valid");
             }
-            
+
         }
+
     }
 }

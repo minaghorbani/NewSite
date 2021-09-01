@@ -14,13 +14,13 @@ namespace Application.BlogApplication
 {
     public class BlogService : IBlogService
     {
-        private BlogRepository _blogRepository;
+        private readonly IBlogRepository _blogRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
-
-        public BlogService(BlogRepository blogRepository, IMapper mapper, ILogger<BlogService> logger)
+        private readonly ILogger<BlogService> _logger;
+        
+        public BlogService(IBlogRepository blogRepository, IMapper mapper, ILogger<BlogService> logger)
         {
-            _blogRepository = blogRepository;
+            _blogRepository = blogRepository; 
             _mapper = mapper;
             _logger = logger;
         }
@@ -30,7 +30,6 @@ namespace Application.BlogApplication
             var result = new Result(false);
 
             var model = _mapper.Map<vmBlogInfo, Blog>(blog);
-
             var id = await _blogRepository.Create(model);
 
             result.State = id == 0 ? false : true;
@@ -43,13 +42,12 @@ namespace Application.BlogApplication
         public async Task<vmBlogInfo> FindById(int id)
         {
             var model = await _blogRepository.GetById(id);
-
             return _mapper.Map<Blog, vmBlogInfo>(model);
         }
         public Task<Result> Update(vmBlogInfo blogInfo)
         {
-            var blog= _mapper.Map<vmBlogInfo,Blog>(blogInfo);
-            return  _blogRepository.Update(blog);
+            var blog = _mapper.Map<vmBlogInfo, Blog>(blogInfo);
+            return _blogRepository.Update(blog);
 
             _logger.LogInformation($"blog {blog.Id} has updated", blog);
         }
@@ -58,6 +56,6 @@ namespace Application.BlogApplication
             throw new NotImplementedException();
         }
 
-        
     }
+   
 }

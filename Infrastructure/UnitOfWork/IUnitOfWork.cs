@@ -9,8 +9,8 @@ namespace Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        IBlogRepository BlogRepository { get; }
-        IPostRepository PostRepository { get; }
+        //IBlogRepository BlogRepository { get; }
+        //IPostRepository PostRepository { get; }
 
         Task<bool> CommitAsync();
     }
