@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="BlogApplication\Queries\**" />
-    <EmbeddedResource Remove="BlogApplication\Queries\**" />
-    <None Remove="BlogApplication\Queries\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
