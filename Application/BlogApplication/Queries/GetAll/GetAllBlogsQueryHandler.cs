@@ -13,9 +13,9 @@ namespace Application.BlogApplication.Queries.GetAll
 {
     public class GetAllBlogsQueryHandler : IRequestHandler<GetAllBlogsQuery, IList<Blog>>
     {
-        private readonly BlogRepository _blogRepository;
+        private readonly IBlogRepository _blogRepository;
         private readonly IMapper _mapper;
-        public GetAllBlogsQueryHandler(BlogRepository blogRepository, IMapper mapper)
+        public GetAllBlogsQueryHandler(IBlogRepository blogRepository, IMapper mapper)
         {
             _blogRepository = blogRepository;
             _mapper = mapper;

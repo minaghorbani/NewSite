@@ -1,7 +1,7 @@
 ﻿using Application.BlogApplication;
 using Application.BlogApplication.Command.Create;
-//using Application.BlogApplication.Queries.FindById;
-//using Application.BlogApplication.Queries.GetAll;
+using Application.BlogApplication.Queries.FindById;
+using Application.BlogApplication.Queries.GetAll;
 using Domain.ViewModels.Blog;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,26 +14,21 @@ namespace WebPresentation.Controllers
 {
     public class BlogController : Controller
     {
-        //private readonly IMediator _mediator;
-        //public BlogController(IMediator mediator)
+
+        //private readonly IBlogService _blogService;
+
+        //public BlogController(IBlogService blogService)
         //{
-        //    _mediator = mediator;
+        //    _blogService = blogService;
         //}
-        private readonly IBlogService _blogService;
-        
-        public BlogController(IBlogService blogService)
-        {
-            _blogService = blogService;
-        }
 
-        public async Task<IActionResult> Create()
-        {
+        //public async Task<IActionResult> Create()
+        //{
 
-            vmBlogInfo model = new vmBlogInfo { Description = "22245", Title = "222" };
-            var result = await _blogService.Create(model);
-            return Ok(result);
-        }
-
+        //    vmBlogInfo model = new vmBlogInfo { Description = "22245", Title = "222" };
+        //    var result = await _blogService.Create(model);
+        //    return Ok(result);
+        //}
         //[HttpPost]
         //public async Task<IActionResult> Create(vmBlogInfo model)
         //{
@@ -42,25 +37,33 @@ namespace WebPresentation.Controllers
         //    return Ok(result);
         //}
 
-        //public async Task<IActionResult> Create(vmBlogInfo model)
-        //{
-        //    var result = await _mediator.Send(new BlogCreateCommand()
-        //    {
-        //        Description = model.Description,
-        //        Title = model.Title
-        //    });
 
-        //    return Ok(result);
-        //}
-        //public async Task<IActionResult> FindAll()
-        //{
-        //    var model = await _mediator.Send(new GetAllBlogsQuery());
-        //    return View();
-        //}
-        //public async Task<IActionResult> FindById(int id)
-        //{
-        //    var model = await _mediator.Send(new FindBlogsByIdQuery() { Id = id });
-        //    return View();
-        //}
+        private readonly IMediator _mediator;
+        public BlogController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async Task<IActionResult> Create(vmBlogInfo model)
+        {
+            var en = new BlogCreateCommand()
+            {
+                Description = model.Description,
+                Title = model.Title
+            };
+            var result = await _mediator.Send(en);
+
+            return Ok(result);
+        }
+        public async Task<IActionResult> FindAll()
+        {
+            var model = await _mediator.Send(new GetAllBlogsQuery());
+            return Ok(model);
+        }
+        public async Task<IActionResult> FindById(int id)
+        {
+            var model = await _mediator.Send(new FindBlogsByIdQuery() { Id = id });
+            return Ok(model);
+        }
     }
 }

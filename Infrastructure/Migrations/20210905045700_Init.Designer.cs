@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(SiteDbContext))]
-    [Migration("20210825113635_Init")]
+    [Migration("20210905045700_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("DateInsert")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 8, 25, 16, 6, 35, 161, DateTimeKind.Local).AddTicks(6072));
+                        .HasDefaultValue(new DateTime(2021, 9, 5, 9, 27, 0, 201, DateTimeKind.Local).AddTicks(6799));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -79,7 +79,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("DateInsert")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 8, 25, 16, 6, 35, 171, DateTimeKind.Local).AddTicks(9812));
+                        .HasDefaultValue(new DateTime(2021, 9, 5, 9, 27, 0, 211, DateTimeKind.Local).AddTicks(3083));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -128,7 +128,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("DateInsert")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 8, 25, 16, 6, 35, 172, DateTimeKind.Local).AddTicks(9246));
+                        .HasDefaultValue(new DateTime(2021, 9, 5, 9, 27, 0, 211, DateTimeKind.Local).AddTicks(8302));
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -266,12 +266,10 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -308,12 +306,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

@@ -1,7 +1,7 @@
 using Application.BlogApplication;
 using Application.BlogApplication.Command.Create;
-//using Application.BlogApplication.Queries.FindById;
-//using Application.BlogApplication.Queries.GetAll;
+using Application.BlogApplication.Queries.FindById;
+using Application.BlogApplication.Queries.GetAll;
 using Application.Common;
 using Autofac;
 using Domain.Identity;
@@ -127,19 +127,26 @@ namespace WebPresentation
 
 
 
-            //services.AddMediatR(typeof(BlogCreateCommand).GetTypeInfo().Assembly);
-            //services.AddMediatR(typeof(FindBlogsByIdQuery).GetTypeInfo().Assembly);
-            //services.AddMediatR(typeof(GetAllBlogsQuery).GetTypeInfo().Assembly);
-            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-            //services.AddTransient(typeof(IPipelineBehavior<BlogCreateCommand, int>), typeof(BlogCreateValidationBehavior<BlogCreateCommand, int>));
-            //services.AddTransient<IBlogRepository, BlogRepository>();
+           
 
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
+
+            services.AddMediatR(typeof(BlogCreateCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(FindBlogsByIdQuery).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetAllBlogsQuery).GetTypeInfo().Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<BlogCreateCommand, int>), typeof(BlogCreateValidationBehavior<BlogCreateCommand, int>));
+
+
+
+
             services.AddControllersWithViews();
             
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

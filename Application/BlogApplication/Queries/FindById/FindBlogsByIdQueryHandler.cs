@@ -13,9 +13,9 @@ namespace Application.BlogApplication.Queries.FindById
 {
     public class FindBlogsByIdQueryHandler : IRequestHandler<FindBlogsByIdQuery, Blog>
     {
-        private readonly BlogRepository _blogRepository;
+        private readonly IBlogRepository _blogRepository;
         private readonly IMapper _mapper;
-        public FindBlogsByIdQueryHandler(BlogRepository blogRepository, IMapper mapper)
+        public FindBlogsByIdQueryHandler(IBlogRepository blogRepository, IMapper mapper)
         {
             _blogRepository = blogRepository;
             _mapper = mapper;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.BlogApplication.Queries.GetAll
 {
-    public class GetAllBlogsQuery:IRequest<IList<Blog>>
+    public class GetAllBlogsQuery : IRequest<IList<Blog>>
     {
 
     }

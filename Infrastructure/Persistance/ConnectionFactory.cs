@@ -10,7 +10,7 @@ namespace Infrastructure.Persistance
     {
         public  string GetConnectionString()
         {
-            return "Server=DESKTOP-4CRA0BU\\GHORBANI;Database=newSite;User ID=sa;Password=3686535;Trusted_Connection=True";
+            return "Server=DESKTOP-L35V6LG;Database=newSite;User ID=Mina;Password=Dapa123456;Trusted_Connection=True";
         }
     }
 }
