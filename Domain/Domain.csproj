@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\" />
-    <Folder Include="Aggregates\PostAggregate\" />
-    <Folder Include="Enums\" />
-    <Folder Include="Aggregates\BlogAggregate\" />
+    <Compile Remove="Aggregates\**" />
+    <Compile Remove="Enums\**" />
+    <EmbeddedResource Remove="Aggregates\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <None Remove="Aggregates\**" />
+    <None Remove="Enums\**" />
   </ItemGroup>
 
   <ItemGroup>
